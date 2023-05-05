@@ -1,0 +1,33 @@
+Hi, this is our trading app.
+ 
+We did not choose either free stocks or a vol trader strategy. Instead, our trading app 
+is an improvement of the current a1-a2-n1-n2 strategy. To be more specific, we adapted 
+four features from the dataset and used a decision tree to distinguish from 1 and 
+(0 and -1) groups as an indicator of whether we want to initiate buying on one certain day. 
+This approach will stop us from entering the market on some specific dates, in this way, 
+we can avoid potential big losses and also retain a stable profit.
+ 
+The reason why we use the decision tree model is it is a simple classification strategy 
+and it is easier to explain, especially how it uses the features. We can easily draw a 
+graph to show how the features are used.
+ 
+The features we used are the VIX index, DXY Curncy, SPXSFRCS Index, and IVV AU Equity. 
+The reason why we choose these is as follows. First, those index covers different aspects 
+of economics, like volatility and currency value. Next, these features process some ideal 
+properties such as they are there is no significant multilinearity as will be an issue in 
+linear regression and many regression models. The way we filter the features are based heat map.
+ 
+Because our features are only four dimensions, there is no need to use dimensional reduction. 
+If we do need to, we can use PCA to reduce dimension.
+ 
+Our look back window size is 10, and we run on the last 100 days of data. 10 days of window 
+size correspond to the last two week's market data, and we only would want the last 100 days 
+(roughly half a trading year) to train our model because we want our model to only adapt to 
+the most recent macro economic environment.
+
+As for the application of Hoeffding inequation, we set our X to be the achieved volatility 
+collected from our revised algorithm, the Miu to be the achieved volatility of the ‘dumb’ 
+method and alpha and beta to be 1 times the average difference. So, our X is roughly 0.06% 
+per trade and Miu is 0.11% per trade, and we put everything in our Hoeffding equation and 
+find the result that if the annualized volatility difference of our model and the ‘dumb’ 
+model is less than 4.98%, then our model is no longer effective and need to be halted.
