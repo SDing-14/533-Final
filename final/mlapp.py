@@ -20,7 +20,7 @@ app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 percentage = dash_table.FormatTemplate.percentage(3)
 
-image_filename = 'IMG_0614.jpg'
+image_filename = 'IMG_0615.jpg'
 encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 
@@ -152,7 +152,7 @@ app.layout = dbc.Container(
             html.P('The features we used are the VIX index, DXY Curncy, SPXSFRCS Index, and IVV AU Equity. The reason why we choose these is as follows. First, those index covers different aspects of economics, like volatility and currency value. Next, these features process some ideal properties such as they are there is no significant multilinearity as will be an issue in linear regression and many regression models. The way we filter the features are based heat map.'),
             html.P('Because our features are only four dimensions, there is no need to use dimensional reduction. If we do need to, we can use PCA to reduce dimension.'),
             html.P('Our look back window size is 10, and we run on the last 100 days of data. 10 days of window size correspond to the last two week\'s market data, and we only would want the last 100 days (roughly half a trading year) to train our model because we want our model to only adapt to the most recent macro economic environment.'),
-            html.P('As for the application of Hoeffding inequation, we set our X to be the achieved volatility collected from our revised algorithm, the Miu to be the achieved volatility of the \'dumb\' method and alpha and beta to be 1 times the average difference. So, our X is roughly 0.06% per trade and Miu is 0.11% per trade, and we put everything in our Hoeffding equation and find the result that if the annualized volatility difference of our model and the \'dumb\' model is less than 4.98%, then our model is no longer effective and need to be halted.'),
+            html.P('As for the application of Hoeffding inequation, we set our X to be the achieved volatility collected from our revised algorithm, the Miu to be the achieved volatility of the \'dumb\' method and a and b to be 1 times the average difference. So, our X is roughly 0.06% per trade and Miu is 0.11% per trade, and we put everything in our Hoeffding equation and find the result that if the annualized volatility difference of our model and the \'dumb\' model is less than 4.98%, then our model is no longer effective and need to be halted.'),
         ], style={'margin': '50px 0'})
     ],
     fluid=True
@@ -223,13 +223,6 @@ def hist_return(ledger):
     fig.add_trace(go.Scatter(x=x, y=p(x), mode='lines', name='Trendline'))
     equation = f'y = {z[0]:.2f}x + {z[1]:.2f}' + '\nReturn = beta * x + alpha'
 
-    # fig.add_trace(go.Scatter(x=x, y=y, name='Original Return'))
-
-    # x, y, alpha2, beta2 = ml.ml_return(ledger)
-    # fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name='ML Return', line=dict(color='blue')))
-
-    # fig.add_annotation(x=1.1, y=0.9, text=f"Original Alpha: {alpha1:.2f}", showarrow=False)
-    # fig.add_annotation(x=1.1, y=0.8, text=f"Original Beta: {beta1:.2f}", showarrow=False)
     annotations = [
         dict(xref='paper', yref='paper', x=0.8, y=0.17, xanchor='left', yanchor='top', text=f"Original Alpha: {alpha1:.5f}", showarrow=False),
         dict(xref='paper', yref='paper', x=0.8, y=0.1, xanchor='left', yanchor='top', text=f"Original Beta: {beta1:.5f}", showarrow=False),

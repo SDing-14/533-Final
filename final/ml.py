@@ -73,7 +73,7 @@ def train_and_result(ledger):
 
     return_history = pd.DataFrame(
         return_history, index=scaled_data.index[-predict_num:])
-    returns = ledger['success']
+    returns = ledger[['success']]
     returns = pd.merge(returns, return_history, how='left',
                        left_index=True, right_index=True)[-(predict_num+window):]
     returns.columns = ['Original Success', 'ML Decision']
@@ -93,9 +93,7 @@ def train_and_result(ledger):
 def ml_return(ledger):
     global window
     global predict_num
-    global scaled_data
-    global return_history
-    global returns
+    # global returns
 
     returns.set_index('entry_dt', inplace=True)
     ledger = pd.DataFrame(ledger)
@@ -126,9 +124,7 @@ def ml_return(ledger):
     ml_return = ml_return[ml_return['ML Actual'] != 0]
 
 
-    # ml_return = ml_return[predict_num-1]
-    # x = ml_return['ledger return'].index
-    # y = ml_return['ledger return']
+
     x = ml_return['IVV Return']
     y = ml_return['ledger return']
 

@@ -27,7 +27,7 @@ the most recent macro economic environment.
 
 As for the application of Hoeffding inequation, we set our X to be the achieved volatility 
 collected from our revised algorithm, the Miu to be the achieved volatility of the ‘dumb’ 
-method and alpha and beta to be 1 times the average difference. So, our X is roughly 0.06% 
+method and a and b to be 1 times the average difference. So, our X is roughly 0.06% 
 per trade and Miu is 0.11% per trade, and we put everything in our Hoeffding equation and 
 find the result that if the annualized volatility difference of our model and the ‘dumb’ 
 model is less than 4.98%, then our model is no longer effective and need to be halted.
